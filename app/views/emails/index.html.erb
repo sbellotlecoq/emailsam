@@ -1,0 +1,32 @@
+<% if user_signed_in? %>
+  #Hi, <%=current_user.email%> !
+  /
+  <%= link_to "Sign out", destroy_user_session_path, data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+                } %>
+<% else %>
+  <%= link_to "Sign in", new_user_session_path %>
+  /
+  <%= link_to "Sign up", new_user_registration_path %>
+<% end %> 
+
+<%= form_tag '/emails', method: :post do %>
+    <%= submit_tag 'Recevoir un email' %>
+  <% end %>
+
+<% @emails.each do |email| %>
+<ul>
+    <li><%= link_to email.object, email %></li>
+    <p><%= email.body %></p>
+    <small><%= email.user.email %></small>
+</ul>
+
+<% end %>
+
+
+
+
+
+
+
